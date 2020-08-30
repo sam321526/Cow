@@ -25,16 +25,14 @@ namespace Cow.ViewModel
         }
         #region 取得資料按鈕
         public ICommand GetData => new RelayCommand(ParsingData);
-        private DataTable dt = new DataTable();
-        private Binding _Data = null;
-        public Binding Data
+        private DataTable dt = null;
+        public DataTable Data
         {
             get
             {
-                if (_Data == null)
+                if (dt == null)
                 {
-                    _Data = new Binding();
-                    _Data.Source = dt;
+                    dt = new DataTable();
                     dt.Columns.Add("CodeName");
                     dt.Columns.Add("Name");
                     dt.Columns.Add("Sum");
@@ -42,17 +40,17 @@ namespace Cow.ViewModel
                     dt.Rows.Add(new string[] { "101", "asdf", "111111" });
                     dt.Rows.Add(new string[] { "101", "asdf", "111111" });
                 }
-                return _Data;
+                return dt;
             }
             set
             {
-                _Data = value;
+                dt = value;
                 OnPropertyChanged("Data");
             }
         }
         private void ParsingData(object obj)
         {
-
+            dt.Rows.Add(new string[] { "101", "asdf", "222222" });
         }
         #endregion
         #region DatePicker
