@@ -7,7 +7,7 @@
         xmlns:hc="https://handyorg.github.io/handycontrol"
                mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <hc:BlurWindow.DataContext>        
+    <hc:BlurWindow.DataContext>
         <ObjectDataProvider x:Name="dataSource" ObjectType="{x:Type local1:MainViewModel}"/>
     </hc:BlurWindow.DataContext>
     <DockPanel>
@@ -40,8 +40,10 @@
                 <Button Content="取得資料" Margin="474,0,10,0" Command="{Binding GetData}"/>
             </hc:SimplePanel>
         </Border>
-        <DataGrid HeadersVisibility="All" RowHeaderWidth="60" Margin="0,12,12,12" ItemsSource="{Binding Data.DefaultView}" AutoGenerateColumns="True">                
-                
-        </DataGrid>
+        <DataGrid Margin="0,12,12,12" HorizontalAlignment="Stretch" HeadersVisibility="All" ItemsSource="{Binding TWSE.DefaultView}" AutoGenerateColumns="True" MinColumnWidth="100" 
+                  VirtualizingStackPanel.VirtualizationMode="Recycling" VirtualizingStackPanel.IsVirtualizing="True">
+            
+        </DataGrid>    
+       
     </DockPanel>
 </hc:BlurWindow>

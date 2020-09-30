@@ -47,6 +47,12 @@
     <Reference Include="HandyControl, Version=2.5.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\HandyControl.2.5.0.2\lib\net47\HandyControl.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.24.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>packages\HtmlAgilityPack.1.11.24\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="JCSharp">
+      <HintPath>G:\james\testing\JCSharp\JCSharp\bin\Debug\JCSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -77,6 +83,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="library\ParsingHTML.cs" />
     <Compile Include="library\SQlite_Module.cs" />
     <Compile Include="Model\SelectedMenuItem.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

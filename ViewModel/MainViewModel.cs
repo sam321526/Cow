@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
+using Cow.library;
 using Cow.Model;
 using HandyControl.Controls;
 
@@ -25,32 +26,36 @@ namespace Cow.ViewModel
         }
         #region 取得資料按鈕
         public ICommand GetData => new RelayCommand(ParsingData);
-        private DataTable dt = null;
-        public DataTable Data
+        private DataTable TWSE_dt = null;
+        public DataTable TWSE
         {
             get
             {
-                if (dt == null)
+                if (TWSE_dt == null)
                 {
-                    dt = new DataTable();
-                    dt.Columns.Add("CodeName");
-                    dt.Columns.Add("Name");
-                    dt.Columns.Add("Sum");
-                    dt.Rows.Add(new string[] { "101", "asdf", "111111" });
-                    dt.Rows.Add(new string[] { "101", "asdf", "111111" });
-                    dt.Rows.Add(new string[] { "101", "asdf", "111111" });
+                    TWSE_dt = SQlite_Module.GetDataTable("SELECT * FROM TWSE");
                 }
-                return dt;
+                return TWSE_dt;
             }
             set
             {
-                dt = value;
-                OnPropertyChanged("Data");
+                TWSE_dt = value;
+                OnPropertyChanged("TWSE");
             }
         }
         private void ParsingData(object obj)
         {
-            dt.Rows.Add(new string[] { "101", "asdf", "222222" });
+            int diffDate = EndDateTime.Subtract(StartDateTime).Days;
+            for (int str = 0; str <= diffDate; str++)
+            {
+                string date = StartDateTime.AddDays(str).ToString("yyyyMMdd");
+                var data = ParsingHTML.GetTWSE(date);
+                foreach (var item in data)
+                {
+                    SQlite_Module.Manipulate($@"INSERT INTO TWSE(""證券代號"", ""證券名稱"", ""成交股數"", ""成交筆數"", ""成交金額"",""開盤價"",""最高價"",""最低價"",""收盤價"",""漲跌(+/-)"",""漲跌價差"",""最後揭示買價"",""最後揭示買量"",""最後揭示賣價"",""最後揭示賣量"",""本益比"") VALUES({string.Join(",", item.Value)})");
+                }
+            }
+            TWSE = SQlite_Module.GetDataTable("SELECT * FROM TWSE");
         }
         #endregion
         #region DatePicker
