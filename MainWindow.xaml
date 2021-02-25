@@ -8,7 +8,7 @@
                mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <hc:BlurWindow.DataContext>
-        <ObjectDataProvider x:Name="dataSource" ObjectType="{x:Type local1:MainViewModel}"/>
+        <Binding Path="Main" Source="{StaticResource Locator}"/>
     </hc:BlurWindow.DataContext>
     <DockPanel>
         <hc:SideMenu x:Name="mySideMenu" BorderThickness="1" Width="200" Margin="12" DockPanel.Dock="Left" HorizontalAlignment="Left">
@@ -34,15 +34,14 @@
         <Border DockPanel.Dock="Top" Margin="0,12,12,0" BorderThickness="1" BorderBrush="Gray">
             <hc:SimplePanel>
                 <Label Content="開始日期" Margin="10,0,474,0"/>
-                <hc:DatePicker SelectedDate="{Binding StartDateTime,Mode=TwoWay}" Width="150" Height="10" Margin="85,0,319,0" />
+                <hc:DatePicker SelectedDate="{Binding twse.StartDateTime,Mode=TwoWay}" Width="150" Height="10" Margin="85,0,319,0" />
                 <Label Content="結束日期"/>
-                <hc:DatePicker SelectedDate="{Binding EndDateTime,Mode=TwoWay}" Width="150" Height="10" Margin="317,0,87,0" />
+                <hc:DatePicker SelectedDate="{Binding twse.EndDateTime,Mode=TwoWay}" Width="150" Height="10" Margin="317,0,87,0" />
                 <Button Content="取得資料" Margin="474,0,10,0" Command="{Binding GetData}"/>
             </hc:SimplePanel>
         </Border>
-        <DataGrid Margin="0,12,12,12" HorizontalAlignment="Stretch" HeadersVisibility="All" ItemsSource="{Binding TWSE.DefaultView}" AutoGenerateColumns="True" MinColumnWidth="100" 
-                  VirtualizingStackPanel.VirtualizationMode="Recycling" VirtualizingStackPanel.IsVirtualizing="True">
-            
+        <DataGrid Margin="0,12,12,12" HorizontalAlignment="Stretch" HeadersVisibility="All" ItemsSource="{Binding twse.TWSE_Data.DefaultView}" AutoGenerateColumns="True" MinColumnWidth="100" 
+                  VirtualizingStackPanel.VirtualizationMode="Recycling" VirtualizingStackPanel.IsVirtualizing="True">            
         </DataGrid>    
        
     </DockPanel>
